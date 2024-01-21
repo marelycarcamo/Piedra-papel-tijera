@@ -10,9 +10,9 @@
 
 3. <p align="justify"><b> Elección de la computadora.</b> La computadora elige su movimiento de manera aleatoria utilizando la función random.choice. Esta función selecciona un elemento al azar de la lista de opciones (piedra, papel, tijera).</p>
 
-4. <p align="justify"><b> Determinación del ganador.</b> Se determina el ganador de la ronda comparando el movimiento del jugador con el de la computadora: </p>
-  -   Piedra gana a tijera (la piedra rompe la tijera).
-  - Tijera gana a papel (las tijeras cortan el papel).
+4. <b> Determinación del ganador.</b> Se determina el ganador de la ronda comparando el movimiento del jugador con el de la computadora: 
+- - Piedra gana a tijera (la piedra rompe la tijera).
+  - Tijera gana a papel (las tijeras cortan el papel)
   - Papel gana a piedra (el papel envuelve la piedra).
   - Si ambos jugadores eligen el mismo movimiento, es un empate.
 
