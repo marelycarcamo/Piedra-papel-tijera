@@ -1,5 +1,7 @@
 # ----- JUEGO PIEDRA PAPEL Y TIJERA--------
 
+# AUTHOR : MARELY
+
 # REGLAS DEL JUEGO
 
 # Jugadores: El juego se juega entre dos personas1.
@@ -17,53 +19,72 @@
 
 import random
 
-# Definición de las opciones del juego
-opciones = ["piedra", "papel", "tijera"]
+# Constantes para las opciones del juego
+PIEDRA = 1
+PAPEL = 2
+TIJERA = 3
+SALIR = 0
 
-while True:
+
+#Funcion obtener_opcion_usuario. Obtiene la opción del usuario desde la entrada estándar.
+def obtener_opcion_jugador():
+    
+    while True:
+        try:
+            opcion = int(input("Ingrese el número correspondiente para jugar: "))
+            if opcion in [PIEDRA, PAPEL, TIJERA, SALIR]:
+                return opcion
+            else:
+                print("Número inválido. Por favor, intente de nuevo.")
+        except ValueError:
+            print("Entrada inválida. Por favor, ingrese un número.")
+
+
+#Funcion obtener_opcion_computador. Obtiene una opción aleatoria para la computadora.
+def obtener_opcion_computador():
+    return random.choice([PIEDRA, PAPEL, TIJERA])
+
+
+#Funcion determinar_ganador. Determina el ganador del juego
+def determinar_ganador(usuario, computadora):
+    if usuario == computadora:
+        return "Es un empate!"
+    elif (usuario == PIEDRA and computadora == TIJERA) or \
+        (usuario == PAPEL and computadora == PIEDRA) or \
+        (usuario == TIJERA and computadora == PAPEL):
+        return "¡Ganaste!"
+    else:
+        return "Perdiste. ¡Inténtalo de nuevo!"
+
+
+#Función jugar. Despliegue del juego en pantalla.
+def jugar():
+    """Ejecuta el juego de piedra, papel o tijera."""
     print("\n#############################################")
     print("             Piedra, papel o tijera")
-    print("              [1] piedra")
-    print("              [2] papel")
-    print("              [3] tijera")
-    print("              [0] salir")
+    print(f"              [{PIEDRA}] piedra")
+    print(f"              [{PAPEL}] papel")
+    print(f"              [{TIJERA}] tijera")
+    print(f"              [{SALIR}] salir")
     print("#############################################")
-    print("Ingrese el número correspondiente para jugar")
 
-    # Obtener la elección del jugador
-    eleccion_jugador = input("jugar: ")
+    while True:
+        opcion_usuario = obtener_opcion_jugador()
+        if opcion_usuario == SALIR:
+            break
 
-    # Verificar si el jugador quiere salir del juego
-    if eleccion_jugador == "0":
-        break
+        opcion_computadora = obtener_opcion_computador()
 
-    # Verificar si la elección del jugador es válida
-    while eleccion_jugador not in ["1", "2", "3"]:
-        print("Número inválido. Por favor, intente de nuevo.")
-        eleccion_jugador = input("Ingrese un número: ")
+        print(f"\nHas elegido: {opcion_usuario}")
+        print(f"Computadora eligió: {opcion_computadora}")
 
-    # Convertir la elección del jugador a piedra, papel o tijera
-    eleccion_jugador = opciones[int(eleccion_jugador) - 1]
+        resultado = determinar_ganador(opcion_usuario, opcion_computadora)
+        print(f"\n{resultado}")
 
-    print(f"\nHas elegido: {eleccion_jugador}")
+        continuar = input("\n¿Quieres seguir jugando? (s/n): ")
+        if continuar.lower() != 's':
+            break
 
-    # Elección aleatoria de la computadora
-    eleccion_computadora = random.choice(opciones)
 
-    print(f"Computadora eligió: {eleccion_computadora}")
-
-    # Determinar el ganador
-    if eleccion_jugador == eleccion_computadora:
-        print("\nEs un empate!")
-    elif (eleccion_jugador == "piedra" and eleccion_computadora == "tijera") or \
-         (eleccion_jugador == "papel" and eleccion_computadora == "piedra") or \
-         (eleccion_jugador == "tijera" and eleccion_computadora == "papel"):
-        print("\n¡Ganaste!")
-    else:
-        print("\nPerdiste. ¡Inténtalo de nuevo!")
-
-    # Preguntar al jugador si quiere continuar
-    continuar = input("\n¿Quieres seguir jugando? (s/n): ")
-    if continuar.lower() != 's':
-        break
-    
+# Ejecutar el juego
+jugar()
